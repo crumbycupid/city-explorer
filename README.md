@@ -28,11 +28,11 @@ Keyan Tabor
 
 ## Time estimates
 
-<!-- Name of feature:
-Estimate of time needed to complete:
-Start time:
-Finish time
--->
+Name of feature:Map, lat, lon, forms
+Estimate of time needed to complete:24 hrs.
+Start time:5pm
+Finish time:7pm(next day)
+
 
 ## Lab 6 WWRC
 ![lab 6 wrrc](https://user-images.githubusercontent.com/114770792/202059146-fec6ecbb-8585-4025-ad30-28beafa57001.jpg)
