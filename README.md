@@ -28,10 +28,10 @@ Keyan Tabor
 
 ## Time estimates
 
-Name of feature:Map, lat, lon, forms
+Name of feature:Map, lat, lon, forms.
 Estimate of time needed to complete:24 hrs.
-Start time:5pm
-Finish time:7pm(next day)
+Start time:5pm.
+Finish time:7pm(next day).
 
 
 ## Lab 6 WWRC
