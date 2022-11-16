@@ -32,3 +32,6 @@ Keyan Tabor
 Estimate of time needed to complete:
 Start time:
 Finish time-->
+
+![lab 6 wrrc](https://user-images.githubusercontent.com/114770792/202059146-fec6ecbb-8585-4025-ad30-28beafa57001.jpg)
+
