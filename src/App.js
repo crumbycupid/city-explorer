@@ -12,6 +12,8 @@ class App extends React.Component {
       cityData: {},
       errorMessage: '',
       isError: false,
+      lat: '',
+      lon: ''
     }
   }
   handleCityInput = (event) => {
@@ -21,16 +23,17 @@ class App extends React.Component {
   };
 
   handleCitySubmit = async (event) => {
-    let url = `https://us1.locationiq.com/v1/search?key${process.env.React_APP_CITY_KEY}&q=${this.state.city}&format=json`;
     try {
       event.preventDefault();
-      let locationInfo = await axios.get(url);
-
+      let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.city}&format=json`;
+      let locationInfo = await axios.get(url)
       this.setState({
         cityData: locationInfo.data[0],
+        lat: locationInfo.data[0].lat,
+        lon: locationInfo.data[0].lon,
         isError: false,
+        isAlertShown: false
       });
-
     } catch (error) {
       this.setState({
         errorMessage: error.message,
@@ -43,7 +46,9 @@ class App extends React.Component {
 
     return (
       <>
-        <h1>City Explorer</h1>
+        <header>
+          <h1>City Explorer</h1>
+        </header>
         <main>
           <form id='cityForm' onSubmit={this.handleCitySubmit}>
             <label>
@@ -53,9 +58,11 @@ class App extends React.Component {
           </form>
           {this.state.isError ? <Alert className="alert"><Alert.Heading>Oh No! There is an Error!</Alert.Heading><p>{this.state.errorMessage}</p></Alert> : <p className='alert'></p>}
         </main>
+        <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.lat},${this.state.lon}`} alt='placeholder' title='Map'/>
+        <p>{this.state.city}, {this.state.lat}, {this.state.lon}</p>
       </>
     );
   }
 }
 
-export default App;
+        export default App;
