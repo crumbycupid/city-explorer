@@ -34,6 +34,34 @@ Start time:5pm.
 Finish time:7pm(next day).
 
 
-## Lab 6 WWRC
+## Lab 6 WRRC
 ![lab 6 wrrc](https://user-images.githubusercontent.com/114770792/202059146-fec6ecbb-8585-4025-ad30-28beafa57001.jpg)
 
+
+
+Name of feature:API server
+Estimate of time needed to complete:24 hrs.
+Start time:11-15 5:30pm.
+Finish time:next day.
+
+
+## Lab 7 WRRC
+![dataflow2](https://user-images.githubusercontent.com/114770792/202644671-ff50c2d7-0d59-4847-b817-854a61ae5166.png)
+
+
+Name of feature:Weather and Movie API
+Estimate of time needed to complete:24 hrs.
+Start time:11-16 5:30pm.
+Finish time:tbd
+
+## Lab 8 WRRC
+![Lab 8 wrrc copy](https://user-images.githubusercontent.com/114770792/202643976-1abdc958-1c92-46e6-80cd-836414688d6e.jpg)
+
+
+Name of feature:Refactoring.
+Estimate of time needed to complete:24 hrs.
+Start time:11-17 5pm.
+Finish time:tbd
+
+## Lab 9 WRRC
+![Lab 8 wrrc](https://user-images.githubusercontent.com/114770792/202643394-994c25f9-188c-4c95-8925-6eb3c7c62126.jpg)
