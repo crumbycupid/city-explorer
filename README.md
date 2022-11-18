@@ -5,25 +5,33 @@
 
 ## Overview
 
-As a user, I want to be able to enter the name of a location to see the exact latitude and longitude of that location, as well as a map of that location. I also want to know if there are errors made in my search.
+As a user, I want to be able to enter the name of a location to see the exact latitude and longitude of that location, as well as a map of that location. I also want to know if there are errors made in my search. Also, I would like to recieve an error message if I enter an invalid search. I would also, 
+like to be able to see weather data for the said city in a forecast. I would also like to see data for popular movie for the city thats entered. 
 
 ## Getting Started
 
-Set up a React repo & API keys. Connect to API, and add location, map imaging, and error fuctionality.
+Set up a React repo & API keys. Connect to API, and add location, map imaging, and error fuctionality. Created a backend server, to recieve requests from
+the user, to send to the servers for information. 
 
 ## Architecture
 
-Using React, CSS, JS, Bootstrap JS, API.
+Using React, CSS, JS, Bootstrap JS, APIs.
 
 ## Change Log
 
 11-14-2022 6:32pm - Application created in git hub, as well as npm created and connected to github app. Read me created.
+11-18-2022 02:30am - Major changes added. Front end, dispaying city data. Backend API created. 
 
 <!-- 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
 
 Keyan Tabor
+Aubrey Corsetti
+Cody De La Torre
+Todd Wolden 
+Sheyna Watkins
+TA's
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
 ## Time estimates
