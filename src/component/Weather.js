@@ -1,20 +1,25 @@
 import React from "react";
+import WeatherDay from './WeatherDay'
 
 class Weather extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
-
-  render() {
+ render() {
+  let weathers = [];
+  this.props.weatherData.forEach((event, index) => {
+    return(
+      <WeatherDay
+      key={index}
+      weatherData={event}
+      />
+    );
+  });
     return (
       <>
-        {this.props.date}
-        {this.props.description}
+        <h2>{this.props.cityName} weathers</h2>
+       <ul>
+        {weathers}
+        </ul>
       </>
-    )
+    );
   }
 }
 
