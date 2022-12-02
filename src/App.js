@@ -1,9 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import axios from 'axios';
-import Weather from './component/Weather'
+import WeatherDay from './component/WeatherDay'
 import Alert from 'react-bootstrap/Alert'
+import Movie from './component/Movie';
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -11,9 +13,11 @@ class App extends React.Component {
     this.state = {
       city: '',
       cityData: {},
+      weatherData: [],
+      movieData: [],
       errorMessage: '',
       isError: false,
-      weatherData: [],
+      showImage: false
     }
   }
 
@@ -25,54 +29,87 @@ class App extends React.Component {
   };
 
   handleCitySubmit = async (event) => {
-    event.preventDefault();
-    console.log('here')
-    let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.city}&format=json`;
     try {
-      let locationInfo = await axios.get(url);
-
+      event.preventDefault();
+      
+      let locationInfo = await axios.get(`https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.city}&format=json`);
+      let cityWeather = await axios.get(`${process.env.REACT_APP_SERVER}/weather?searchedLat=${locationInfo.data[0].lat}&searchedLon=${locationInfo.data[0].lon}`);
+      let cityMovie = await axios.get(`${process.env.REACT_APP_SERVER}/movie?searchedCity=${this.state.city}`);
+      
+      let day = 1;
+      
+      let theWeather = await axios.get(`${process.env.REACT_APP_SERVER}/weather?searchedLat=${locationInfo.data[0].lat}&searchedLon=${locationInfo.data[0].lon}&days=${day}`);
+      
       this.setState({
         cityData: locationInfo.data[0],
+        weatherData: cityWeather.data[0],
+        movieData: cityMovie.data[0],
         lat: locationInfo.data[0].lat,
         lon: locationInfo.data[0].lon,
+        singleWeather: theWeather,
         isError: false,
-        isAlertShown: false
-      }, this.handleWeather);
-
+        isAlertShown: false,
+        isCity: true
+      })
     } catch (error) {
       this.setState({
+        isError: true,
+        isCity: false,
+        isMovie: false,
         errorMessage: error.message,
-        isError: true
       })
     }
   }
-
-  handleWeather = async () => {
-
+  
+  /*handleWeather = async () => {
+    
     try {
-      let url = `http://localhost:3002/weather?&lat=${this.state.lat}&lon=${this.state.lon}`
+      let url = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}&lat=${this.state.cityData.lat}&lon=${this.state.cityData.lon}`;
       let weatherData = await axios.get(url);
-
+      
       console.log(weatherData);
-
+      
       this.setState({
-        weatherData: weatherData.data,
+        weatherData: weatherData.data
       });
-
+      
       console.log(this.state);
-
+      
     } catch (error) {
       console.log(error);
     }
   };
+  
+  handleMovie = async ()=> {
+    let movieURL = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.city}`;
+    let movieData = await axios.get(movieURL);
+    this.setState({
+      movieData: movieData.data
+    })
+  };
+  */
+ render() {
+   
+     let url = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.lat},${this.state.lon}&zoom=13`;
+     let cityGrid = <h2>lat: {this.state.lat}, lon: {this.state.lon}</h2>
+     let map = this.state.isCity ? <img src={url} alt={this.state.city}/> : <></>
+   
+   /*    let weatherDisplay = this.state.weatherData.map((weatherData, idx) => {
+      return <Weather
+      date = {weatherData.date}
+      description = {weatherData.fullDescription}
+      key={idx}/>
+    });
 
-  render() {
+    let movieDisplay = this.state.movieData.map((movieData, idx) => {
+      return <Movie
+      movies = {this.state.movieData}
+      city = {this.state.searchCity}
+      key = {idx}/>
+    });
 
-    let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.lat},${this.state.lon}&zoom=13`
-
-
-    //let display = mapUrl;
-    /*if(this.state.isError) {
+    let display = '';
+    if(this.state.isError) {
       display = <p>{this.state.errorMessage}</p>
     } else {
     display = <ul>
@@ -80,7 +117,7 @@ class App extends React.Component {
       <ul>Latitude: {this.state.cityData.lat}</ul>
       <ul>Longitude: {this.state.cityData.lon}</ul>
     </ul>
-  }*/
+  }
 
     let weatherDisplay = this.state.weatherData.map(weatherData => {
 
@@ -89,26 +126,39 @@ class App extends React.Component {
           date={this.state.weatherData.date}
           description={this.state.weatherData.description}
         />)
-    });
+    });*/
 
     return (
       <>
         <header>
           <h1 title='404'>City Explorer</h1>
         </header>
-        <main>
-          <form id='cityForm' onSubmit={this.handleCitySubmit}>
-            <label>
-              <input name='city' type='text' onChange={this.handleCityInput} placeholder="Please Search for a City" id="inputId" />
-            </label>
-            <button type='submit' id="inputIdBtn">Explore</button>
-          </form>
-          <article>
-            <img src={mapUrl} alt={this.state.cityData.display_name} />
+        <form onSubmit={this.handleCitySubmit}>
+          <label>
+            <input name='city' onChange={this.handleCityInput} placeholder="ex: Tampa"/>
+          </label>
+            <button type='submit'>Explore!</button>
+        </form>
+        {this.state.isError ? <p>{this.state.errorMessage}</p> : <ul></ul>}
+        {this.state.showImage &&
+            <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.lat},${this.state.lon}&zoom=13`} alt={this.state.cityData.display_name} />}
             {this.state.isError ? <Alert className="alert"><Alert.Heading>Oh No! There is an Error!</Alert.Heading><p>{this.state.errorMessage}</p></Alert> : <p className='alert'></p>}
-          </article>
-        </main>
-        <p>{this.state.cityData.display_name}</p>
+          <article>
+          <div className="positions">
+              {cityGrid}
+              {map}
+              {this.state.weatherData.length &&
+              <WeatherDay
+                cityName={this.state.city}
+                weatherData={this.state.weatherData}
+                />
+              }
+              <Movie
+                cityName={this.state.city}
+                movie={this.state.movieData}
+                />
+            </div>
+            </article>
       </>
     );
   }
